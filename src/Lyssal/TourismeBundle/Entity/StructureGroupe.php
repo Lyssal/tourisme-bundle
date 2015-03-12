@@ -150,9 +150,9 @@ abstract class StructureGroupe
      * @param \Lyssal\TourismeBundle\Entity\Structure $structures
      * @return StructureGroupe
      */
-    public function addStructure(\Lyssal\TourismeBundle\Entity\Structure $structures)
+    public function addStructure(\Lyssal\TourismeBundle\Entity\Structure $structure)
     {
-        $this->structures[] = $structures;
+        $this->structures[] = $structure;
 
         return $this;
     }
@@ -162,9 +162,9 @@ abstract class StructureGroupe
      *
      * @param \Lyssal\TourismeBundle\Entity\Structure $structures
      */
-    public function removeStructure(\Lyssal\TourismeBundle\Entity\Structure $structures)
+    public function removeStructure(\Lyssal\TourismeBundle\Entity\Structure $structure)
     {
-        $this->structures->removeElement($structures);
+        $this->structures->removeElement($structure);
     }
 
     /**

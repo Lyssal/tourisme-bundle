@@ -231,9 +231,9 @@ abstract class StructureType extends AbstractPersonalTranslatable implements Tra
      * @param \Lyssal\TourismeBundle\Entity\Structure $structures
      * @return StructureType
      */
-    public function addStructure(\Lyssal\TourismeBundle\Entity\Structure $structures)
+    public function addStructure(\Lyssal\TourismeBundle\Entity\Structure $structure)
     {
-        $this->structures[] = $structures;
+        $this->structures[] = $structure;
 
         return $this;
     }
@@ -243,9 +243,9 @@ abstract class StructureType extends AbstractPersonalTranslatable implements Tra
      *
      * @param \Lyssal\TourismeBundle\Entity\Structure $structures
      */
-    public function removeStructure(\Lyssal\TourismeBundle\Entity\Structure $structures)
+    public function removeStructure(\Lyssal\TourismeBundle\Entity\Structure $structure)
     {
-        $this->structures->removeElement($structures);
+        $this->structures->removeElement($structure);
     }
 
     /**
