@@ -6,7 +6,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Sonata\TranslationBundle\Model\Gedmo\AbstractPersonalTranslatable;
 use Sonata\TranslationBundle\Model\Gedmo\TranslatableInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Translatable\Translatable;
 
 /**
  * Structure.

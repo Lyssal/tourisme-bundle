@@ -3,8 +3,6 @@ namespace Lyssal\TourismeBundle\Appellation;
 
 use Lyssal\StructureBundle\Appellation\AppellationHandlerInterface;
 use Lyssal\StructureBundle\Appellation\AppellationHandler;
-use Lyssal\StructureBundle\Decorator\DecoratorManager;
-use Symfony\Component\Routing\RouterInterface;
 use Lyssal\TourismeBundle\Entity\Structure;
 use Lyssal\TourismeBundle\Decorator\StructureDecorator;
 

@@ -7,7 +7,6 @@ use Lyssal\StructureBundle\Decorator\DecoratorManager;
 use Symfony\Component\Routing\RouterInterface;
 use Lyssal\TourismeBundle\Entity\StructureType;
 use Lyssal\TourismeBundle\Decorator\StructureTypeDecorator;
-use LaVendee\TourismeBundle\Entity\Structure;
 
 class StructureTypeAppellation extends AppellationHandler implements AppellationHandlerInterface
 {
