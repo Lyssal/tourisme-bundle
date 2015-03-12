@@ -1,0 +1,9 @@
+<div class="list_structures">
+	{% for structure in structures %}
+	
+		<div class="element">
+			{% include 'LyssalTourismeBundle:Structure/include:list_element.html.twig' with { 'structure':structure } %}
+		</div>
+	
+	{% endfor %}
+</div>

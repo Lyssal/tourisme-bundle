@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+	<parameters>
+		<parameter key="lyssal.tourisme.appellation.structure.class">Lyssal\TourismeBundle\Appellation\StructureAppellation</parameter>
+		<parameter key="lyssal.tourisme.appellation.structure_groupe.class">Lyssal\TourismeBundle\Appellation\StructureGroupeAppellation</parameter>
+		<parameter key="lyssal.tourisme.appellation.structure_type.class">Lyssal\TourismeBundle\Appellation\StructureTypeAppellation</parameter>
+	</parameters>
+
+    <services>
+        <service id="lyssal.tourisme.appellation.structure" class="%lyssal.tourisme.appellation.structure.class%">
+		    <argument type="service" id="router" />
+        	<argument type="service" id="lyssal.decorator"></argument>
+		    <tag name="appellation_handler" />
+		</service>
+        <service id="lyssal.tourisme.appellation.structure_groupe" class="%lyssal.tourisme.appellation.structure_groupe.class%">
+		    <argument type="service" id="router" />
+        	<argument type="service" id="lyssal.decorator"></argument>
+		    <tag name="appellation_handler" />
+		</service>
+        <service id="lyssal.tourisme.appellation.structure_type" class="%lyssal.tourisme.appellation.structure_type.class%">
+		    <argument type="service" id="router" />
+        	<argument type="service" id="lyssal.decorator"></argument>
+		    <tag name="appellation_handler" />
+		</service>
+    </services>
+
+</container>

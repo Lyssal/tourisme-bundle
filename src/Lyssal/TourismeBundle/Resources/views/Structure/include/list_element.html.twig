@@ -1,0 +1,12 @@
+<h2>{{ appellationHtml(structure) }}</h2>
+{% if structure.types|length > 0 %}
+	<ul class="types">
+	    {% for structureType in structure.types %}
+	        <li>{{ appellationHtml(structureType) }}</li>
+	    {% endfor %}
+	</ul>
+{% endif %}
+{% if structure.description is not null %}
+	<p>{{ structure.description }}</p>
+{% endif %}
+<p class="link">{{ appellationHtml(structure) }}</p>

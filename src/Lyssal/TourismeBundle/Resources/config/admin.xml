@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="lyssal.tourisme.admin.structure.class">Lyssal\TourismeBundle\Admin\StructureAdmin</parameter>
+        <parameter key="lyssal.tourisme.admin.structure_groupe.class">Lyssal\TourismeBundle\Admin\StructureGroupeAdmin</parameter>
+        <parameter key="lyssal.tourisme.admin.structure_type.class">Lyssal\TourismeBundle\Admin\StructureTypeAdmin</parameter>
+    </parameters>
+
+    <services>
+        <service id="lyssal.tourisme.admin.structure" class="%lyssal.tourisme.admin.structure.class%">
+            <call method="setRouteBuilder">
+                <argument type="service" id="sonata.admin.route.path_info_slashes" />
+            </call>
+            <tag name="sonata.admin" manager_type="orm" group="Lyssal tourisme" label="Structures" icon="&lt;i class='fa fa-map-marker'&gt;&lt;/i&gt;" />
+            <argument/>
+            <argument>%lyssal.tourisme.entity.structure.class%</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+        </service>
+        <service id="lyssal.tourisme.admin.structure_groupe" class="%lyssal.tourisme.admin.structure_groupe.class%">
+            <call method="setRouteBuilder">
+                <argument type="service" id="sonata.admin.route.path_info_slashes" />
+            </call>
+            <tag name="sonata.admin" manager_type="orm" group="Lyssal tourisme" label="Groupes de structure" />
+            <argument/>
+            <argument>%lyssal.tourisme.entity.structure_groupe.class%</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+        </service>
+        <service id="lyssal.tourisme.admin.structure_type" class="%lyssal.tourisme.admin.structure_type.class%">
+            <call method="setRouteBuilder">
+                <argument type="service" id="sonata.admin.route.path_info_slashes" />
+            </call>
+            <tag name="sonata.admin" manager_type="orm" group="Lyssal tourisme" label="Types de structure" />
+            <argument/>
+            <argument>%lyssal.tourisme.entity.structure_type.class%</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+        </service>
+    </services>
+
+</container>

@@ -1,0 +1,7 @@
+{% for ville in villes %}
+
+	<div class="element">
+		{% include 'LyssalTourismeBundle:Ville/include:list_element.html.twig' with { 'ville':ville } %}
+	</div>
+
+{% endfor %}

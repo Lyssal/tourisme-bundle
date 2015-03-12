@@ -1,0 +1,5 @@
+{% if ville.description is not empty %}
+    <p>{{ ville.description }}</p>
+{% endif %}
+
+{% include 'LyssalTourismeBundle:Structure/include:list.html.twig' with { 'structures': ville.structures } %}

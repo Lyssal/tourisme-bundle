@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="lyssal.tourisme.manager.structure.class">Lyssal\TourismeBundle\Manager\StructureManager</parameter>
+        <parameter key="lyssal.tourisme.manager.structure_groupe.class">Lyssal\TourismeBundle\Manager\StructureGroupeManager</parameter>
+        <parameter key="lyssal.tourisme.manager.structure_type.class">Lyssal\TourismeBundle\Manager\StructureTypeManager</parameter>
+    </parameters>
+
+    <services>
+        <service id="lyssal.tourisme.manager.structure" class="%lyssal.tourisme.manager.structure.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%lyssal.tourisme.entity.structure.class%</argument>
+        </service>
+        <service id="lyssal.tourisme.manager.structure_groupe" class="%lyssal.tourisme.manager.structure_groupe.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%lyssal.tourisme.entity.structure_groupe.class%</argument>
+        </service>
+        <service id="lyssal.tourisme.manager.structure_type" class="%lyssal.tourisme.manager.structure_type.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%lyssal.tourisme.entity.structure_type.class%</argument>
+        </service>
+    </services>
+
+</container>
