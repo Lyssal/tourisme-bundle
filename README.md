@@ -2,6 +2,8 @@
 
 `LyssalTourismeBundle` contient différents outils facilitant le développement d'applications touristiques.
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/1ec40011-a3eb-4292-beb5-13b313bf1318/small.png)](https://insight.sensiolabs.com/projects/1ec40011-a3eb-4292-beb5-13b313bf1318)
+
 
 ## Entités
 
