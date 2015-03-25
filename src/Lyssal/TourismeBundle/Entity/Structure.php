@@ -3,7 +3,7 @@ namespace Lyssal\TourismeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Sonata\TranslationBundle\Model\Gedmo\AbstractPersonalTranslatable;
+use Sonata\TranslationBundle\Traits\Gedmo\PersonalTranslatable;
 use Sonata\TranslationBundle\Model\Gedmo\TranslatableInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -14,8 +14,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
  */
-abstract class Structure extends AbstractPersonalTranslatable implements TranslatableInterface
+abstract class Structure implements TranslatableInterface
 {
+    use PersonalTranslatable;
+    
     /**
      * @var integer
      *
@@ -142,19 +144,20 @@ abstract class Structure extends AbstractPersonalTranslatable implements Transla
     private $derniereModification;
     
     /**
-     * @var string
-     *
-     * @Gedmo\Locale
-     */
-    protected $locale;
-    
-    /**
      * @var \Lyssal\TourismeBundle\Entity\StructureType[]
      *
      * @ORM\ManyToMany(targetEntity="StructureType", inversedBy="structures", cascade="persist")
      * @ORM\JoinTable(name="lyssal_structure_a_structure_type", joinColumns={@ORM\JoinColumn(name="structure_id", referencedColumnName="structure_id")}, inverseJoinColumns={@ORM\JoinColumn(name="structure_type_id", referencedColumnName="structure_type_id")})
      */
     protected $types;
+    
+    /**
+     * @var \Lyssal\TourismeBundle\Entity\Caracteristique[]
+     *
+     * @ORM\ManyToMany(targetEntity="Caracteristique", inversedBy="structures", cascade="persist")
+     * @ORM\JoinTable(name="lyssal_structure_a_caracteristique", joinColumns={@ORM\JoinColumn(name="structure_id", referencedColumnName="structure_id")}, inverseJoinColumns={@ORM\JoinColumn(name="caracteristique_id", referencedColumnName="caracteristique_id")})
+     */
+    protected $caracteristiques;
     
     
     /**
@@ -163,6 +166,7 @@ abstract class Structure extends AbstractPersonalTranslatable implements Transla
     public function __construct()
     {
         $this->types = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->caracteristiques = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
 
@@ -553,6 +557,39 @@ abstract class Structure extends AbstractPersonalTranslatable implements Transla
     public function getTypes()
     {
         return $this->types;
+    }
+    
+    /**
+     * Add caracteristiques
+     *
+     * @param \Lyssal\TourismeBundle\Entity\Caracteristique $caracteristiques
+     * @return Structure
+     */
+    public function addCaracteristique(\Lyssal\TourismeBundle\Entity\Caracteristique $caracteristiques)
+    {
+        $this->caracteristiques[] = $caracteristiques;
+    
+        return $this;
+    }
+    
+    /**
+     * Remove caracteristiques
+     *
+     * @param \Lyssal\TourismeBundle\Entity\Caracteristique $caracteristiques
+     */
+    public function removeCaracteristique(\Lyssal\TourismeBundle\Entity\Caracteristique $caracteristiques)
+    {
+        $this->caracteristiques->removeElement($caracteristiques);
+    }
+    
+    /**
+     * Get caracteristiques
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCaracteristiques()
+    {
+        return $this->caracteristiques;
     }
     
     

@@ -21,7 +21,6 @@ class StructureAdmin extends Admin
     {
         $datagridMapper
             ->add('nom')
-            //->add('ville', 'doctrine_orm_model_autocomplete', array(), null, array('property'=>'nom'))
             ->add('groupe')
             ->add('types')
         ;

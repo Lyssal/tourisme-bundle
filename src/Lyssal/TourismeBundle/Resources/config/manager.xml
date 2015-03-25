@@ -5,6 +5,7 @@
         <parameter key="lyssal.tourisme.manager.structure.class">Lyssal\TourismeBundle\Manager\StructureManager</parameter>
         <parameter key="lyssal.tourisme.manager.structure_groupe.class">Lyssal\TourismeBundle\Manager\StructureGroupeManager</parameter>
         <parameter key="lyssal.tourisme.manager.structure_type.class">Lyssal\TourismeBundle\Manager\StructureTypeManager</parameter>
+        <parameter key="lyssal.tourisme.manager.caracteristique.class">Lyssal\TourismeBundle\Manager\CaracteristiqueManager</parameter>
     </parameters>
 
     <services>
@@ -19,6 +20,10 @@
         <service id="lyssal.tourisme.manager.structure_type" class="%lyssal.tourisme.manager.structure_type.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument>%lyssal.tourisme.entity.structure_type.class%</argument>
+        </service>
+        <service id="lyssal.tourisme.manager.caracteristique" class="%lyssal.tourisme.manager.caracteristique.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%lyssal.tourisme.entity.caracteristique.class%</argument>
         </service>
     </services>
 

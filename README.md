@@ -13,6 +13,7 @@ Les entités sont :
 * Structure : Une structure précise comme le musée du Louvre, l'hôtel des flots bleus, etc
 * StructureType : Un type de structure comme musée, zoo, gare ferroviaire, office de tourisme, etc
 * StructureGroupe : Un groupe de structure comme Carrefour, Krys, Devred, etc
+* Caracteristique : Une caractéristique de structure (Wifi, Accepte les animaux, etc)
 
 Une structure peut appartenir à plusieurs types (par exemple hôtel et restaurant) mais ne peut appartenir qu'à un seul (ou aucun) groupe.
 
@@ -44,7 +45,7 @@ class AcmeTourismeBundle extends Bundle
 
 Ensuite, vous devez créer dans votre bundle les entités nécessaires héritant celles de `LyssalTourismeBundle`.
 
-Vous devez hériter les entités ainsi :
+Vous devez hériter à minima les entités ainsi :
 ```php
 namespace Acme\TourismeBundle\Entity;
 
@@ -66,22 +67,6 @@ class Structure extends BaseStructure
      * @ORM\JoinColumn(name="ville_id", referencedColumnName="ville_id", nullable=false, onDelete="CASCADE")
      */
     protected $ville;
-
-    /**
-     * @var \Acme\TourismeBundle\Entity\StructureGroupe
-     *
-     * @ORM\ManyToOne(targetEntity="StructureGroupe", inversedBy="structures", cascade={"persist"})
-     * @ORM\JoinColumn(name="structure_groupe_id", referencedColumnName="structure_groupe_id", nullable=true, onDelete="SET NULL")
-     */
-    protected $groupe;
-    
-    /**
-     * @var \Acme\TourismeBundle\Entity\StructureType[]
-     *
-     * @ORM\ManyToMany(targetEntity="StructureType", inversedBy="structures", cascade="persist")
-     * @ORM\JoinTable(name="acme_structure_a_structure_type", joinColumns={@ORM\JoinColumn(name="structure_id", referencedColumnName="structure_id", onDelete="CASCADE")}, inverseJoinColumns={@ORM\JoinColumn(name="structure_type_id", referencedColumnName="structure_type_id", onDelete="CASCADE")})
-     */
-    protected $types;
 }
 ```
 ```php
@@ -98,12 +83,7 @@ use Lyssal\TourismeBundle\Entity\StructureGroupe as BaseStructureGroupe;
  */
 class StructureGroupe extends BaseStructureGroupe
 {
-    /**
-     * array
-     *
-     * @ORM\OneToMany(targetEntity="Structure", mappedBy="groupe", cascade={"persist"})
-     */
-    protected $structures;
+    
 }
 ```
 ```php
@@ -120,18 +100,28 @@ use Lyssal\TourismeBundle\Entity\StructureType as BaseStructureType;
  */
 class StructureType extends BaseStructureType
 {
-    /**
-     * @ORM\ManyToMany(targetEntity="Structure", mappedBy="types")
-     */
-    protected $structures;
+    
+}
+```
+```php
+namespace Acme\TourismeBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Lyssal\TourismeBundle\Entity\Caracteristique as BaseCaracteristique;
+
+/**
+ * Caractéristique.
+ * 
+ * @ORM\Entity()
+ * @ORM\Table(name="acme_caracteristique")
+ */
+class Caracteristique extends BaseCaracteristique
+{
+    
 }
 ```
 
-Vous devez ensuite redéfinir les paramètres suivants :
-
-* `lyssal.tourisme.entity.structure.class` : Acme\TourismeBundle\Entity\Structure
-
-Exemple avec sur `Acme/GeographieBundle/Resources/config/services.xml` :
+Vous devez ensuite redéfinir les paramètres d'entité (exemple sur `Acme/GeographieBundle/Resources/config/services.xml`) :
 
 ```xml
 <?xml version="1.0" ?>
@@ -140,6 +130,7 @@ Exemple avec sur `Acme/GeographieBundle/Resources/config/services.xml` :
         <parameter key="lyssal.tourisme.entity.structure.class">Acme\TourismeBundle\Entity\Structure</parameter>
         <parameter key="lyssal.tourisme.entity.structure_groupe.class">Acme\TourismeBundle\Entity\StructureGroupe</parameter>
         <parameter key="lyssal.tourisme.entity.structure_type.class">Acme\TourismeBundle\Entity\StructureType</parameter>
+        <parameter key="lyssal.tourisme.entity.caracteristique.class">Acme\TourismeBundle\Entity\Caracteristique</parameter>
     </parameters>
 </container>
 ```
@@ -212,6 +203,7 @@ Les services sont :
 * `lyssal.tourisme.manager.structure`
 * `lyssal.tourisme.manager.structure_groupe`
 * `lyssal.tourisme.manager.structure_type`
+* `lyssal.tourisme.manager.caracteristique`
 
 ### Exemple d'utilisation
 
@@ -223,17 +215,13 @@ $tousLesStructureGroupes = $this->container->get('lyssal.tourisme.manager.struct
 
 ### Utiliser vos managers hérités de LyssalTourismeBundle
 
-Si vous utilisez vos propres managers héritant des managers de `LyssalTourismeBundle`, vous pouvez redéfinir les paramètres suivants :
-* `lyssal.tourisme.manager.structure.class`
-* `lyssal.tourisme.manager.structure_groupe.class`
-* `lyssal.tourisme.manager.structure_type.class`
-
-Exemple en XML :
+Si vous utilisez vos propres managers héritant des managers de `LyssalTourismeBundle`, vous pouvez redéfinir les paramètres ainsi :
 ```xml
 <parameters>
     <parameter key="lyssal.tourisme.manager.structure.class">Acme\TourismeBundle\Manager\StructureManager</parameter>
     <parameter key="lyssal.tourisme.manager.structure_groupe.class">Acme\TourismeBundle\Manager\StructureGroupeManager</parameter>
     <parameter key="lyssal.tourisme.manager.structure_type.class">Acme\TourismeBundle\Manager\StructureTypeManager</parameter>
+    <parameter key="lyssal.tourisme.manager.caracteristique.class">Acme\TourismeBundle\Manager\CaracteristiqueManager</parameter>
 </parameters>
 ```
 
@@ -280,6 +268,7 @@ Si vous souhaitez redéfinir les classes `Admin`, il suffit de surcharger les pa
 * `lyssal.tourisme.admin.structure.class`
 * `lyssal.tourisme.admin.structure_groupe.class`
 * `lyssal.tourisme.admin.structure_type.class`
+* `lyssal.tourisme.admin.caracteristique.class`
 
 Vous devriez également installer `IvoryCKEditorBundle` pour avoir automatiquement un éditeur graphique aux champs attendant du HTML.
 

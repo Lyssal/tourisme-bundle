@@ -3,7 +3,7 @@ namespace Lyssal\TourismeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Sonata\TranslationBundle\Model\Gedmo\AbstractPersonalTranslatable;
+use Sonata\TranslationBundle\Traits\Gedmo\PersonalTranslatable;
 use Sonata\TranslationBundle\Model\Gedmo\TranslatableInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
@@ -16,8 +16,9 @@ use Lyssal\Image;
  * @author Rémi Leclerc <rleclerc@Lyssal.com>
  * @ORM\MappedSuperclass
  */
-abstract class StructureType extends AbstractPersonalTranslatable implements TranslatableInterface
+abstract class StructureType implements TranslatableInterface
 {
+    use PersonalTranslatable;
     use IconeTrait;
     
     /**
@@ -60,13 +61,6 @@ abstract class StructureType extends AbstractPersonalTranslatable implements Tra
      * @ORM\Column(name="structure_type_icone", type="string", length=64, nullable=false)
      */
     private $icone;
-    
-    /**
-     * @var string
-     *
-     * @Gedmo\Locale
-     */
-    protected $locale;
     
     /**
      * @var array<\Lyssal\GeographieBundle\Entity\StructureType>
