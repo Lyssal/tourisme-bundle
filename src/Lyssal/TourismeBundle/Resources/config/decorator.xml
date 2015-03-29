@@ -12,6 +12,11 @@
             <argument type="service" id="lyssal.decorator" />
             <tag name="decorator_handler" />
         </service>
+        <service id="lyssal.tourisme.decorator.caracteristique" class="Lyssal\TourismeBundle\Decorator\CaracteristiqueDecorator">
+            <argument type="service" id="router" />
+            <argument type="service" id="lyssal.decorator" />
+            <tag name="decorator_handler" />
+        </service>
     </services>
 
 </container>
