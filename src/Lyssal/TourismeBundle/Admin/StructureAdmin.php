@@ -54,9 +54,20 @@ class StructureAdmin extends Admin
         $formMapper
             ->add('nom')
             ->add('description')
-            ->add('ville', 'sonata_type_model_autocomplete', array('property'=>'nom', 'attr' => array('style' => 'width:100%;')))
+            ->add
+            (
+				'ville',
+				'sonata_type_model_autocomplete',
+				array
+				(
+					'property'=>'nom',
+					'attr' => array('style' => 'width:100%;'),
+					'to_string_callback' => function($entity, $property) { return $entity->getNom().' ('.$entity->getCodePostal().')'; }
+				)
+			)
             ->add('groupe')
             ->add('types')
+            ->add('caracteristiques')
             ->add
             (
                 'adresse',
@@ -138,6 +149,7 @@ class StructureAdmin extends Admin
             ->add('ville')
             ->add('groupe')
             ->add('types')
+            ->add('caracteristiques')
             ->add('adresse')
             ->add('siteWeb')
             ->add('telephone')
