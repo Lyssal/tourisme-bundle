@@ -14,6 +14,8 @@ Les entités sont :
 * StructureType : Un type de structure comme musée, zoo, gare ferroviaire, office de tourisme, etc
 * StructureGroupe : Un groupe de structure comme Carrefour, Krys, Devred, etc
 * Caracteristique : Une caractéristique de structure (Wifi, Accepte les animaux, etc)
+* Structure\Hebergement : Champs spécifiques à un hébergement
+* Structure\Restauration : Champs spécifiques à la restauration
 
 Une structure peut appartenir à plusieurs types (par exemple hôtel et restaurant) mais ne peut appartenir qu'à un seul (ou aucun) groupe.
 
@@ -57,6 +59,7 @@ use Lyssal\TourismeBundle\Entity\Structure as BaseStructure;
  * 
  * @ORM\Entity
  * @ORM\Table(name="acme_structure", uniqueConstraints={@ORM\UniqueConstraint(name="SLUG_VILLE_UNIQUE", columns={"structure_slug", "ville_id"})})
+ * @ORM\HasLifecycleCallbacks()
  */
 class Structure extends BaseStructure
 {
@@ -67,6 +70,22 @@ class Structure extends BaseStructure
      * @ORM\JoinColumn(name="ville_id", referencedColumnName="ville_id", nullable=false, onDelete="CASCADE")
      */
     protected $ville;
+    
+    /**
+     * @var \Acme\TourismeBundle\Entity\Structure\Hebergement
+     *
+     * @ORM\OneToOne(targetEntity="\Acme\TourismeBundle\Entity\Structure\Hebergement", inversedBy="structure", cascade="persist")
+     * @ORM\JoinColumn(name="structure_hebergement_id", referencedColumnName="structure_hebergement_id", nullable=true, onDelete="CASCADE")
+     */
+    protected $hebergement;
+    
+    /**
+     * @var \Acme\TourismeBundle\Entity\Structure\Restauration
+     *
+     * @ORM\OneToOne(targetEntity="\Acme\TourismeBundle\Entity\Structure\Restauration", inversedBy="structure", cascade="persist")
+     * @ORM\JoinColumn(name="structure_restauration_id", referencedColumnName="structure_restauration_id", nullable=true, onDelete="CASCADE")
+     */
+    protected $restauration;
 }
 ```
 ```php
@@ -83,7 +102,12 @@ use Lyssal\TourismeBundle\Entity\StructureGroupe as BaseStructureGroupe;
  */
 class StructureGroupe extends BaseStructureGroupe
 {
-    
+    /**
+     * array
+     *
+     * @ORM\OneToMany(targetEntity="\Acme\TourismeBundle\Entity\Structure", mappedBy="groupe", cascade={"persist"})
+     */
+    protected $structures;
 }
 ```
 ```php
@@ -100,7 +124,10 @@ use Lyssal\TourismeBundle\Entity\StructureType as BaseStructureType;
  */
 class StructureType extends BaseStructureType
 {
-    
+    /**
+     * @ORM\ManyToMany(targetEntity="\Acme\TourismeBundle\Entity\Structure", mappedBy="types")
+     */
+    protected $structures;
 }
 ```
 ```php
@@ -120,6 +147,50 @@ class Caracteristique extends BaseCaracteristique
     
 }
 ```
+```php
+namespace Acme\TourismeBundle\Entity\Structure;
+
+use Doctrine\ORM\Mapping as ORM;
+use Lyssal\TourismeBundle\Entity\Structure\Hebergement as BaseHebergement;
+
+/**
+ * Structure\Hebergement.
+ * 
+ * @ORM\Entity()
+ * @ORM\Table(name="acme_structure_hebergement")
+ */
+class Hebergement extends BaseHebergement
+{
+    /**
+     * @var \Acme\TourismeBundle\Entity\Structure
+     *
+     * @ORM\OneToOne(targetEntity="\Acme\TourismeBundle\Entity\Structure", mappedBy="hebergement")
+     */
+    protected $structure;
+}
+```
+```php
+namespace Acme\TourismeBundle\Entity\Structure;
+
+use Doctrine\ORM\Mapping as ORM;
+use Lyssal\TourismeBundle\Entity\Structure\Restauration as BaseRestauration;
+
+/**
+ * Structure\Restauration.
+ * 
+ * @ORM\Entity()
+ * @ORM\Table(name="acme_structure_restauration")
+ */
+class Restauration extends BaseRestauration
+{
+    /**
+     * @var \Acme\TourismeBundle\Entity\Structure
+     *
+     * @ORM\OneToOne(targetEntity="\Acme\TourismeBundle\Entity\Structure", mappedBy="restauration")
+     */
+    protected $structure;
+}
+```
 
 Vous devez ensuite redéfinir les paramètres d'entité (exemple sur `Acme/GeographieBundle/Resources/config/services.xml`) :
 
@@ -128,6 +199,8 @@ Vous devez ensuite redéfinir les paramètres d'entité (exemple sur `Acme/Geogr
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <parameters>
         <parameter key="lyssal.tourisme.entity.structure.class">Acme\TourismeBundle\Entity\Structure</parameter>
+        <parameter key="lyssal.tourisme.entity.structure.hebergement.class">Acme\TourismeBundle\Entity\Structure\Hebergement</parameter>
+        <parameter key="lyssal.tourisme.entity.structure.restauration.class">Acme\TourismeBundle\Entity\Structure\Restauration</parameter>
         <parameter key="lyssal.tourisme.entity.structure_groupe.class">Acme\TourismeBundle\Entity\StructureGroupe</parameter>
         <parameter key="lyssal.tourisme.entity.structure_type.class">Acme\TourismeBundle\Entity\StructureType</parameter>
         <parameter key="lyssal.tourisme.entity.caracteristique.class">Acme\TourismeBundle\Entity\Caracteristique</parameter>
@@ -269,6 +342,8 @@ Si vous souhaitez redéfinir les classes `Admin`, il suffit de surcharger les pa
 * `lyssal.tourisme.admin.structure_groupe.class`
 * `lyssal.tourisme.admin.structure_type.class`
 * `lyssal.tourisme.admin.caracteristique.class`
+* `lyssal.tourisme.admin.structure.hebergement.class`
+* `lyssal.tourisme.admin.structure.restauration.class`
 
 Vous devriez également installer `IvoryCKEditorBundle` pour avoir automatiquement un éditeur graphique aux champs attendant du HTML.
 

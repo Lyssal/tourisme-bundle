@@ -11,8 +11,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Structure.
  * 
  * @author Rémi Leclerc
- * @ORM\MappedSuperclass
- * @ORM\HasLifecycleCallbacks
+ * @ORM\MappedSuperclass()
+ * @ORM\HasLifecycleCallbacks()
  */
 abstract class Structure implements TranslatableInterface
 {
@@ -158,6 +158,22 @@ abstract class Structure implements TranslatableInterface
      * @ORM\JoinTable(name="lyssal_structure_a_caracteristique", joinColumns={@ORM\JoinColumn(name="structure_id", referencedColumnName="structure_id")}, inverseJoinColumns={@ORM\JoinColumn(name="caracteristique_id", referencedColumnName="caracteristique_id")})
      */
     protected $caracteristiques;
+
+    /**
+     * @var \Lyssal\TourismeBundle\Entity\Structure\Hebergement
+     *
+     * @ORM\OneToOne(targetEntity="\Lyssal\TourismeBundle\Entity\Structure\Hebergement", inversedBy="structure", cascade="persist", fetch="EAGER")
+     * @ORM\JoinColumn(name="structure_hebergement_id", referencedColumnName="structure_hebergement_id", nullable=true, onDelete="CASCADE")
+     */
+    protected $hebergement;
+
+    /**
+     * @var \Lyssal\TourismeBundle\Entity\Structure\Restauration
+     *
+     * @ORM\OneToOne(targetEntity="\Lyssal\TourismeBundle\Entity\Structure\Restauration", inversedBy="structure", cascade="persist", fetch="EAGER")
+     * @ORM\JoinColumn(name="structure_restauration_id", referencedColumnName="structure_restauration_id", nullable=true, onDelete="CASCADE")
+     */
+    protected $restauration;
     
     
     /**
@@ -592,6 +608,52 @@ abstract class Structure implements TranslatableInterface
         return $this->caracteristiques;
     }
     
+    /**
+     * Set hebergement
+     *
+     * @param \Lyssal\TourismeBundle\Entity\Structure\Hebergement $hebergement
+     * @return Structure
+     */
+    public function setHebergement(\Lyssal\TourismeBundle\Entity\Structure\Hebergement $hebergement = null)
+    {
+        $this->hebergement = $hebergement;
+
+        return $this;
+    }
+    
+    /**
+     * Get hebergement
+     *
+     * @return \Lyssal\TourismeBundle\Entity\Structure\Hebergement
+     */
+    public function getHebergement()
+    {
+        return $this->hebergement;
+    }
+    
+    /**
+     * Set restauration
+     *
+     * @param \Lyssal\TourismeBundle\Entity\Structure\Restauration $restauration
+     * @return Structure
+     */
+    public function setRestauration(\Lyssal\TourismeBundle\Entity\Structure\Restauration $restauration = null)
+    {
+        $this->restauration = $restauration;
+    
+        return $this;
+    }
+    
+    /**
+     * Get restauration
+     *
+     * @return \Lyssal\TourismeBundle\Entity\Structure\Restauration
+     */
+    public function getRestauration()
+    {
+        return $this->restauration;
+    }
+    
     
     /**
      * Retourne le nom de la structure.
@@ -606,7 +668,7 @@ abstract class Structure implements TranslatableInterface
     /**
      * Traitement à la création.
      * 
-     * @ORM\PrePersist
+     * @ORM\PrePersist()
      */
     public function prePersist()
     {
@@ -616,7 +678,7 @@ abstract class Structure implements TranslatableInterface
     /**
      * Traitement à la modification.
      * 
-     * @ORM\PreUpdate
+     * @ORM\PreUpdate()
      */
     public function preUpdate()
     {

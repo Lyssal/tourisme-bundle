@@ -6,6 +6,8 @@
         <parameter key="lyssal.tourisme.admin.structure_groupe.class">Lyssal\TourismeBundle\Admin\StructureGroupeAdmin</parameter>
         <parameter key="lyssal.tourisme.admin.structure_type.class">Lyssal\TourismeBundle\Admin\StructureTypeAdmin</parameter>
         <parameter key="lyssal.tourisme.admin.caracteristique.class">Lyssal\TourismeBundle\Admin\CaracteristiqueAdmin</parameter>
+        <parameter key="lyssal.tourisme.admin.structure.hebergement.class">Lyssal\TourismeBundle\Admin\Structure\HebergementAdmin</parameter>
+        <parameter key="lyssal.tourisme.admin.structure.restauration.class">Lyssal\TourismeBundle\Admin\Structure\RestaurationAdmin</parameter>
     </parameters>
 
     <services>
@@ -43,6 +45,25 @@
             <tag name="sonata.admin" manager_type="orm" group="Lyssal tourisme" label="Caractéristiques" />
             <argument/>
             <argument>%lyssal.tourisme.entity.caracteristique.class%</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+        </service>
+        
+        <service id="lyssal.tourisme.admin.structure.hebergement" class="%lyssal.tourisme.admin.structure.hebergement.class%">
+            <call method="setRouteBuilder">
+                <argument type="service" id="sonata.admin.route.path_info_slashes" />
+            </call>
+            <tag name="sonata.admin" manager_type="orm" />
+            <argument/>
+            <argument>%lyssal.tourisme.entity.structure.hebergement.class%</argument>
+            <argument>SonataAdminBundle:CRUD</argument>
+        </service>
+        <service id="lyssal.tourisme.admin.structure.restauration" class="%lyssal.tourisme.admin.structure.restauration.class%">
+            <call method="setRouteBuilder">
+                <argument type="service" id="sonata.admin.route.path_info_slashes" />
+            </call>
+            <tag name="sonata.admin" manager_type="orm" />
+            <argument/>
+            <argument>%lyssal.tourisme.entity.structure.restauration.class%</argument>
             <argument>SonataAdminBundle:CRUD</argument>
         </service>
     </services>

@@ -21,17 +21,6 @@ class StructureDecorator extends DecoratorHandler implements DecoratorHandlerInt
         return ($entity instanceof Structure);
     }
 
-    
-    /**
-     * Retourne les types de structure de la structure.
-     * 
-     * @return \Lyssal\TourismeBundle\Decorator\StructureTypeDecorator[] Types de structure (decorator)
-     */
-    public function getTypes()
-    {
-        return $this->decoratorManager->get($this->entity->getTypes());
-    }
-    
     /**
      * Retourne l'URL de l'icône 16px.
      * 

@@ -13,6 +13,8 @@
         <parameter key="lyssal.tourisme.entity.structure_groupe.class">Lyssal\TourismeBundle\Entity\StructureGroupe</parameter>
         <parameter key="lyssal.tourisme.entity.structure_type.class">Lyssal\TourismeBundle\Entity\StructureType</parameter>
         <parameter key="lyssal.tourisme.entity.caracteristique.class">Lyssal\TourismeBundle\Entity\Caracteristique</parameter>
+        <parameter key="lyssal.tourisme.entity.structure.hebergement.class">Lyssal\TourismeBundle\Entity\Structure\Hebergement</parameter>
+        <parameter key="lyssal.tourisme.entity.structure.restauration.class">Lyssal\TourismeBundle\Entity\Structure\Restauration</parameter>
     </parameters>
 
 </container>

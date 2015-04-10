@@ -34,7 +34,7 @@ class StructureAdmin extends Admin
         $listMapper
             ->addIdentifier('nom')
             ->add('ville')
-            ->add('groupe')
+            ->add('types')
             ->add('derniereModification')
             ->add('_action', 'actions', array(
                 'actions' => array(
@@ -133,6 +133,30 @@ class StructureAdmin extends Admin
                     (
                         'required' => false
                     )
+                )
+            ;
+        }
+
+        if (null !== $this->getSubject()->getHebergement())
+        {
+            $formMapper
+                ->add
+                (
+                    'hebergement',
+                    'sonata_type_admin',
+                    array('btn_add' => false, 'btn_delete' => false)
+                )
+            ;
+        }
+
+        if (null !== $this->getSubject()->getRestauration())
+        {
+            $formMapper
+                ->add
+                (
+                    'restauration',
+                    'sonata_type_admin',
+                    array('btn_add' => false, 'btn_delete' => false)
                 )
             ;
         }

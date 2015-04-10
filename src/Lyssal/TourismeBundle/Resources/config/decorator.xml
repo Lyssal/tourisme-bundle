@@ -1,18 +1,24 @@
 <?xml version="1.0" ?>
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="lyssal.tourisme.decorator.structure.class">Lyssal\TourismeBundle\Decorator\StructureDecorator</parameter>
+        <parameter key="lyssal.tourisme.decorator.structure_type.class">Lyssal\TourismeBundle\Decorator\StructureTypeDecorator</parameter>
+        <parameter key="lyssal.tourisme.decorator.caracteristique.class">Lyssal\TourismeBundle\Decorator\CaracteristiqueDecorator</parameter>
+    </parameters>
+
     <services>
-        <service id="lyssal.tourisme.decorator.structure" class="Lyssal\TourismeBundle\Decorator\StructureDecorator">
+        <service id="lyssal.tourisme.decorator.structure" class="%lyssal.tourisme.decorator.structure.class%">
             <argument type="service" id="router" />
             <argument type="service" id="lyssal.decorator" />
             <tag name="decorator_handler" />
         </service>
-        <service id="lyssal.tourisme.decorator.structure_type" class="Lyssal\TourismeBundle\Decorator\StructureTypeDecorator">
+        <service id="lyssal.tourisme.decorator.structure_type" class="%lyssal.tourisme.decorator.structure_type.class%">
             <argument type="service" id="router" />
             <argument type="service" id="lyssal.decorator" />
             <tag name="decorator_handler" />
         </service>
-        <service id="lyssal.tourisme.decorator.caracteristique" class="Lyssal\TourismeBundle\Decorator\CaracteristiqueDecorator">
+        <service id="lyssal.tourisme.decorator.caracteristique" class="%lyssal.tourisme.decorator.caracteristique.class%">
             <argument type="service" id="router" />
             <argument type="service" id="lyssal.decorator" />
             <tag name="decorator_handler" />
