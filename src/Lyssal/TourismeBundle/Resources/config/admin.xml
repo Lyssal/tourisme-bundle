@@ -52,7 +52,7 @@
             <call method="setRouteBuilder">
                 <argument type="service" id="sonata.admin.route.path_info_slashes" />
             </call>
-            <tag name="sonata.admin" manager_type="orm" />
+            <tag name="sonata.admin" manager_type="orm" show_in_dashboard="false" />
             <argument/>
             <argument>%lyssal.tourisme.entity.structure.hebergement.class%</argument>
             <argument>SonataAdminBundle:CRUD</argument>
@@ -61,7 +61,7 @@
             <call method="setRouteBuilder">
                 <argument type="service" id="sonata.admin.route.path_info_slashes" />
             </call>
-            <tag name="sonata.admin" manager_type="orm" />
+            <tag name="sonata.admin" manager_type="orm" show_in_dashboard="false" />
             <argument/>
             <argument>%lyssal.tourisme.entity.structure.restauration.class%</argument>
             <argument>SonataAdminBundle:CRUD</argument>
