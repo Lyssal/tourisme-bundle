@@ -13,7 +13,7 @@ class StructureTypeAppellation extends AppellationHandler implements Appellation
     /**
      * @var \Lyssal\StructureBundle\Decorator\DecoratorManager DecoratorManager
      */
-    private $decoratorManager;
+    protected $decoratorManager;
     
     /**
      * Constructeur de AppellationManager.
