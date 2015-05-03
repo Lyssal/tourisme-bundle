@@ -65,6 +65,8 @@ class StructureAdmin extends Admin
 					'to_string_callback' => function($entity, $property) { return $entity->getNom().' ('.$entity->getCodePostal().')'; }
 				)
 			)
+            ->add('latitude', 'text', array('required' => false))
+            ->add('longitude', 'text', array('required' => false))
             ->add('groupe')
             ->add('types')
             ->add('caracteristiques')
@@ -171,6 +173,8 @@ class StructureAdmin extends Admin
             ->add('nom')
             ->add('description')
             ->add('ville')
+            ->add('latitude')
+            ->add('longitude')
             ->add('groupe')
             ->add('types')
             ->add('caracteristiques')
