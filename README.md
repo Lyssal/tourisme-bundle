@@ -57,9 +57,8 @@ use Lyssal\TourismeBundle\Entity\Structure as BaseStructure;
 /**
  * Structure.
  * 
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Lyssal\TourismeBundle\Repository\StructureRepository")
  * @ORM\Table(name="acme_structure", uniqueConstraints={@ORM\UniqueConstraint(name="SLUG_VILLE_UNIQUE", columns={"structure_slug", "ville_id"})})
- * @ORM\HasLifecycleCallbacks()
  */
 class Structure extends BaseStructure
 {
