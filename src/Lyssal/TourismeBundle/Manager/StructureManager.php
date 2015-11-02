@@ -3,7 +3,6 @@ namespace Lyssal\TourismeBundle\Manager;
 
 use Lyssal\StructureBundle\Manager\Manager;
 use Lyssal\TourismeBundle\Entity\StructureType;
-use Doctrine\Common\Collections\Collection;
 
 /**
  * Manager de l'entité Structure.
