@@ -4,7 +4,7 @@ namespace Lyssal\TourismeBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Lyssal\StructureBundle\Entity\IconeTrait;
+use Lyssal\StructureBundle\Traits\IconeTrait;
 use Lyssal\Image;
 
 /**
