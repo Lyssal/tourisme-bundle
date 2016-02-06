@@ -7,7 +7,7 @@ use Sonata\TranslationBundle\Traits\Gedmo\PersonalTranslatable;
 use Sonata\TranslationBundle\Model\Gedmo\TranslatableInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
-use Lyssal\StructureBundle\Entity\IconeTrait;
+use Lyssal\StructureBundle\Traits\IconeTrait;
 use Lyssal\Image;
 
 /**
