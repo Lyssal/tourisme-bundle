@@ -58,7 +58,7 @@ abstract class Restauration
      * @param \Lyssal\TourismeBundle\Entity\Structure $structure
      * @return Restauration
      */
-    public function setStructure(\LaVendee\TourismeBundle\Entity\Structure $structure = null)
+    public function setStructure(\Lyssal\TourismeBundle\Entity\Structure $structure = null)
     {
         $this->structure = $structure;
 
