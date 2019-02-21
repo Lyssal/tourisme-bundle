@@ -17,9 +17,8 @@ class StructureRepository extends EntityRepository
     public function findByTypeAndCoordonnees(StructureType $structureType, array $coordonnees, $distanceMaximale)
     {
         $requete = $this->createQueryBuilder('structure');
-        
-        $requeteExpressionDistance = $requete->expr()->sqrt('Power(ville.latitude - :latitude, 2) + Power(ville.longitude - :longitude, 2)');
-        
+        $requeteExpressionDistance = 'SQRT(Power(ville.latitude - :latitude, 2) + Power(ville.longitude - :longitude, 2)) AS distance';
+
         $requete
             ->addSelect($requeteExpressionDistance)
             ->innerJoin('structure.ville', 'ville')
@@ -28,17 +27,20 @@ class StructureRepository extends EntityRepository
             ->addSelect('structureType')
             ->where($requete->expr()->orX('structureType = :structureType', 'structureType.parent = :structureType'))
             ->setParameter('structureType', $structureType)
-            ->andWhere($requete->expr()->lt($requeteExpressionDistance, $distanceMaximale * 0.00000899))
+            ->andWhere($requete->expr()->lt('SQRT(Power(ville.latitude - :latitude, 2) + Power(ville.longitude - :longitude, 2))', $distanceMaximale * 0.00000899))
             ->setParameter('latitude', $coordonnees[0])
             ->setParameter('longitude', $coordonnees[1])
-            ->orderBy($requeteExpressionDistance, 'ASC')
+            ->orderBy('distance', 'ASC')
         ;
         
-        $resultats = $requete->getQuery()->execute();
+        $resultats = [];
         
-        foreach ($resultats as $i => $resultat)
+        foreach ($requete->getQuery()->execute() as $i => $resultat)
         {
-            $resultats[$i][1] = (floatval($resultat[1]) / 0.00000899); // Distance en mètres
+            $resultats[] = [
+                $resultat[0],
+                (floatval($resultat['distance']) / 0.00000899) // Distance en mètres
+            ];
         }
 
         return $resultats;
